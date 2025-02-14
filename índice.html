@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una cartita por que decidiste nacer lejos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #b30000;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 10vh 0;
+            position: relative;
+        }
+
+        .marco {
+            width: 80vw;
+            max-width: 800px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 15px solid white;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 0px 20px white;
+            padding: 30px;
+            text-align: center;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .sobre-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 1s ease-in-out;
+        }
+
+        .sobre {
+            width: 80%;
+            max-width: 600px;
+            transition: transform 1s ease-in-out;
+        }
+
+        .abrir-carta {
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .abrir-carta:hover {
+            background-color: pink;
+        }
+
+        .contenido {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1s ease-in-out, font-size 1s ease-in-out;
+            width: 100%;
+        }
+
+        .texto {
+            font-size: 1em;
+            transition: font-size 1s ease-in-out;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .texto-para {
+            margin-top: 10%;
+        }
+
+        .texto-mensaje {
+            margin-top: 5%;
+        }
+
+        .texto-grande {
+            font-size: 1.4em;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+        @keyframes subir {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-150vh) scale(1.5); opacity: 0; }
+        }
+
+        .corazones-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .corazon-flotante {
+            position: absolute;
+            color: pink;
+            animation: subir linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+<div class="corazones-container" id="corazonesContainer"></div>
+
+<div class="marco">
+    <div class="sobre-container" id="sobreContainer">
+        <img src="sobre.png" alt="Sobre" class="sobre" id="sobre">
+        <button class="abrir-carta" id="btnAbrir" onclick="abrirCarta()">Abrir Carta</button>
+    </div>
+
+    <div class="contenido" id="contenido">
+        <h2 class="texto texto-para" id="texto">Para mi señorito hermoso</h2>
+        <p class="texto texto-mensaje" id="mensaje">
+            No sé bien cómo empezar esta carta, porque lo nuestro no tiene nombre todavía, pero sí tiene algo especial, algo que me hace sonreír sin darme cuenta y esperar con ganas cada mensaje tuyo.
+
+A veces, la vida nos sorprende poniendo en nuestro camino a personas que, sin previo aviso, se vuelven esenciales. Y tú, sin duda, eres una de ellas. Aunque no hace mucho que nos conocemos, la conexión que hemos creado es algo que valoro profundamente. Me encanta cómo nuestras conversaciones fluyen con tanta naturalidad, cómo nuestras risas se mezclan y cómo, poco a poco, te has convertido en alguien importante.
+
+Hoy, en este día del amor y la amistad, no quiero dejar pasar la oportunidad de decirte cuánto disfruto compartir momentos contigo. Me gusta la forma en que me haces sentir, la tranquilidad y la emoción que traes a mi mundo. Me encanta la complicidad que tenemos, las risas que compartimos y la emoción de no saber qué pasará, pero aún así, querer seguir descubriéndolo juntos.
+
+No sé exactamente qué nombre darle a esto, pero sí sé que disfruto cada momento contigo. Me gusta la emoción de descubrirte, de aprender más de ti y de imaginar lo que podríamos ser. Y por eso, quiero agradecerte por ser tú, por aparecer en mi vida y hacerla un poco más especial.
+
+Así que, en este día especial,te quiero decir que no te enojes😜.
+
+Feliz día del amor y la amistad. Te quiero mucho
+
+Con cariño,yo.
+
+        </p>
+    </div>
+</div>
+
+<script>
+    function abrirCarta() {
+        let sobre = document.getElementById("sobre");
+        let contenido = document.getElementById("contenido");
+        let texto = document.getElementById("texto");
+        let mensaje = document.getElementById("mensaje");
+        let btnAbrir = document.getElementById("btnAbrir");
+
+        // Ocultar botón después de hacer clic
+        btnAbrir.classList.add("oculto");
+
+        // Disminuir tamaño del sobre
+        sobre.classList.add("sobre-chico");
+
+        // Mostrar contenido de la carta después de la animación del sobre
+        setTimeout(() => {
+            contenido.style.display = "flex";
+            texto.classList.add("texto-grande");
+            mensaje.classList.add("texto-grande");
+        }, 1000);
+
+        // Crear corazones flotantes durante 2 minutos
+        let container = document.getElementById("corazonesContainer");
+        let duracionEfecto = 120000; // 2 minutos en milisegundos
+        let intervalo = setInterval(() => {
+            let corazon = document.createElement("div");
+            corazon.innerHTML = "❤️";
+            corazon.classList.add("corazon-flotante");
+            corazon.style.left = Math.random() * 100 + "vw";
+            corazon.style.bottom = "-20px"; // Aparecen desde fuera de la pantalla
+            corazon.style.fontSize = Math.random() * 20 + 20 + "px";
+            corazon.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            container.appendChild(corazon);
+
+            setTimeout(() => { corazon.remove(); }, 10000); // Cada corazón desaparece en 10s
+        }, 100); // Aparece un corazón cada 100ms (~600 corazones en 1 minuto)
+
+        // Detener la generación de corazones después de 2 minutos
+        setTimeout(() => {
+            clearInterval(intervalo);
+        }, duracionEfecto);
+    }
+</script>
+
+</body>
+</html>
